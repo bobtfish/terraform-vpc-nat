@@ -45,7 +45,7 @@ resource "aws_instance" "nat-primary" {
         Name = "nat-primary"
     }
     key_name = "${var.aws_key_name}"
-    subnet_id = "${aws_subnet.front-primary.id}"
+    subnet_id = "${module.vpc.primary-az-frontsubnet}"
     security_groups = ["${aws_security_group.allow_all.id}"]
     tags {
         Name = "nat-primary"
