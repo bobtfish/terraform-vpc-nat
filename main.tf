@@ -59,6 +59,10 @@ resource "aws_instance" "nat-primary" {
         inline = [
           "while pkill -0 cloud-init; do sleep 2; done"
         ]
+        connection {
+          user = "ubuntu"
+          key_file = "../../../id_rsa"
+        }
     }
 }
 
