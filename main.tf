@@ -1,0 +1,55 @@
+module "vpc" {
+    source = "github.com/bobtfish/terraform-vpc"
+    region = "${var.region}"
+    account = "${var.account}"
+}
+
+resource "aws_route_table" "private" {
+    vpc_id = "${module.vpc.id}"
+    route {
+        cidr_block = "0.0.0.0/0"
+        instance_id = "${aws_instance.nat-primary.id}"
+    }
+
+    tags {
+        Name = "${var.region} ${var.account} public"
+    }
+}
+
+resource "aws_security_group" "allow_all" {
+  name = "allow_all"
+  description = "Allow all inbound traffic"
+  vpc_id = "${aws_vpc.main.id}"
+
+  ingress {
+      from_port = 0
+      to_port = 65535
+      protocol = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
+module "ami" {
+  source = "github.com/bobtfish/terraform-ubuntu-ami"
+  region = "${var.region}"
+  distribution = "trusty"
+  architecture = "amd64"
+  virttype = "hvm"
+  storagetype = "instance-store"
+}
+
+resource "aws_instance" "nat-primary" {
+    ami = "${module.ami.ami_id}"
+    instance_type = "m3.large"
+    tags {
+        Name = "nat-primary"
+    }
+    key_name = "${var.aws_key_name}"
+    subnet_id = "${aws_subnet.front-primary.id}"
+    security_groups = ["${aws_security_group.allow_all.id}"]
+    tags {
+        Name = "nat-primary"
+    }
+    user_data = "#cloud-config\napt_sources:\n - source: \"deb https://get.docker.io/ubuntu docker main\"\n   keyid: 36A1D7869245C8950F966E92D8576A8BA88D21E9\n - source: \"deb http://apt.puppetlabs.com trusty main\"\n   keyid: 1054b7a24bd6ec30\napt_upgrade: true\nlocale: en_US.UTF-8\npackages:\n - lxc-docker\n - puppet\n - git"
+}
+
