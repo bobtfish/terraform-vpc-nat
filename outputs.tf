@@ -1,3 +1,15 @@
+output "region" {
+  value = "${var.region}"
+}
+output "account" {
+  value = "${var.account}"
+}
+output "primary-az" {
+  value = "${module.vpc.primary-az}"
+}
+output "secondary-az" {
+  value = "${module.vpc.secondary-az}"
+}
 output "primary-az-frontsubnet" {
   value = "${module.vpc.primary-az-frontsubnet}"
 }
