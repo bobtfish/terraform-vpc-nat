@@ -2,7 +2,7 @@ module "vpc" {
     source = "github.com/bobtfish/terraform-vpc"
     region = "${var.region}"
     account = "${var.account}"
-    account = "${var.networkprefix}"
+    networkprefix = "${var.networkprefix}"
 }
 
 resource "aws_route_table" "private" {
