@@ -47,9 +47,6 @@ module "ami" {
 resource "aws_instance" "nat-primary" {
     ami = "${module.ami.ami_id}"
     instance_type = "m3.large"
-    tags {
-        Name = "nat-primary"
-    }
     source_dest_check = false
     key_name = "${var.aws_key_name}"
     subnet_id = "${module.vpc.primary-az-frontsubnet}"
