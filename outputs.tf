@@ -1,3 +1,6 @@
+output "aws_key_name" {
+  value = "${var.aws_key_name}"
+}
 output "region" {
   value = "${var.region}"
 }
