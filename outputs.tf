@@ -5,19 +5,19 @@ output "primary-az-dedicatedsubnet" {
     value = "${module.vpc.primary-az-dedicatedsubnet}"
 }
 output "primary-az-ephemeralsubnet" {
-    value = "${module.vpc.public-routeable}"
+    value = "${module.vpc.primary-az-ephemeralsubnet}"
 }
 output "secondary-az-frontsubnet" {
-    value = "${module.vpc.public-routeable}"
+    value = "${module.vpc.secondary-az-frontsubnet}"
 }
 output "secondary-az-dedicatedsubnet" {
-    value = "${module.vpc.public-routeable}"
+    value = "${module.vpc.secondary-az-dedicatedsubnet}"
 }
 output "secondary-az-ephemeralsubnet" {
-    value = "${module.vpc.public-routeable}"
+    value = "${module.vpc.secondary-az-ephemeralsubnet}"
 }
-output "public-routeable" {
-    value = "${module.vpc.public-routeable}"
+output "public-routetable" {
+    value = "${module.vpc.public-routetable}"
 }
 output "private-routetable" {
     value = "${aws_route_table.private.id}"

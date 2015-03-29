@@ -12,8 +12,13 @@ resource "aws_route_table" "private" {
     }
 
     tags {
-        Name = "${var.region} ${var.account} public"
+        Name = "${var.region} ${var.account} private"
     }
+}
+
+resource "aws_main_route_table_association" "a" {
+    vpc_id = "${module.vpc.id}"
+    route_table_id = "${aws_route_table.private.id}"
 }
 
 resource "aws_security_group" "allow_all" {
