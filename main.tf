@@ -61,7 +61,7 @@ resource "aws_instance" "nat-primary" {
         ]
         connection {
           user = "ubuntu"
-          key_file = "../../../id_rsa"
+          key_file = "${var.aws_key_location}"
         }
     }
 }
