@@ -36,7 +36,7 @@ resource "aws_security_group" "allow_all" {
 }
 
 module "ami" {
-  source = "github.com/bobtfish/terraform-ubuntu-ami"
+  source = "github.com/terraform-community-modules/tf_aws_ubuntu_ami"
   region = "${var.region}"
   distribution = "trusty"
   architecture = "amd64"
