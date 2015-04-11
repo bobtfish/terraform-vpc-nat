@@ -1,3 +1,6 @@
+variable "nat_instance_count" {
+  default = "${module.vpc.az_count}"
+}
 variable "instance_type" {
   default = "t2.micro"
 }
