@@ -43,7 +43,7 @@ module "ami" {
 }
 
 resource "aws_instance" "nat" {
-    count = "${var.nat_instance_count}"
+    count = "${module.vpc.az_count}"
     ami = "${module.ami.ami_id}"
     instance_type = "${var.instance_type}"
     source_dest_check = false
