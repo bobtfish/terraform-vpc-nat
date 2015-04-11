@@ -43,12 +43,12 @@ module "ami" {
 }
 
 resource "aws_instance" "nat" {
-    count = "${module.vpc.az_count}"
+    count = "2" /* FIXME ${module.vpc.az_count}" */
     ami = "${module.ami.ami_id}"
     instance_type = "m3.large"
     source_dest_check = false
     key_name = "${var.aws_key_name}"
-    subnet_id = "${element(module.vpc.frontsubnets, count.index)}"
+    subnet_id = "${element(split(\",\", module.vpc.frontsubnets), count.index)}"
     security_groups = ["${aws_security_group.allow_all.id}"]
     tags {
         Name = "nat-primary"
