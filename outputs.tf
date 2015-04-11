@@ -7,29 +7,17 @@ output "region" {
 output "account" {
   value = "${var.account}"
 }
-output "primary-az" {
-  value = "${module.vpc.primary-az}"
+output "azs" {
+  value = "${module.vpc.azs}"
 }
-output "secondary-az" {
-  value = "${module.vpc.secondary-az}"
+output "frontsubnets" {
+  value = "${module.vpc.frontsubnets}"
 }
-output "primary-az-frontsubnet" {
-  value = "${module.vpc.primary-az-frontsubnet}"
+output "dedicatedsubnets" {
+    value = "${module.vpc.dedicatedsubnets}"
 }
-output "primary-az-dedicatedsubnet" {
-    value = "${module.vpc.primary-az-dedicatedsubnet}"
-}
-output "primary-az-ephemeralsubnet" {
-    value = "${module.vpc.primary-az-ephemeralsubnet}"
-}
-output "secondary-az-frontsubnet" {
-    value = "${module.vpc.secondary-az-frontsubnet}"
-}
-output "secondary-az-dedicatedsubnet" {
-    value = "${module.vpc.secondary-az-dedicatedsubnet}"
-}
-output "secondary-az-ephemeralsubnet" {
-    value = "${module.vpc.secondary-az-ephemeralsubnet}"
+output "ephemeralsubnets" {
+    value = "${module.vpc.ephemeralsubnets}"
 }
 output "public-routetable" {
     value = "${module.vpc.public-routetable}"
@@ -55,13 +43,13 @@ output "default_security_group_id" {
 output "security_group_allow_all" {
     value = "${aws_security_group.allow_all.id}"
 }
-output "nat_instance" {
-    value = "${aws_instance.nat-primary.id}"
+output "nat_instances" {
+    value = "${join(\",\", aws_instance.nat.*.id)}"
 }
-output "nat_public_ip" {
-    value = "${aws_instance.nat-primary.public_ip}"
+output "nat_public_ips" {
+    value = "${join(\",\", aws_instance.nat.*.public_ip)}"
 }
-output "nat_private_ip" {
-    value = "${aws_instance.nat-primary.private_ip}"
+output "nat_private_ips" {
+    value = "${join(\",\", aws_instance.nat.*.private_ip)}"
 }
 

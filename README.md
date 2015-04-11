@@ -21,12 +21,9 @@ Inputs:
 
 Outputs:
   * aws_key_name
-  * primary-az-frontsubnet
-  * primary-az-dedicatedsubnet
-  * primary-az-ephemeralsubnet
-  * secondary-az-frontsubnet
-  * secondary-az-dedicatedsubnet
-  * secondary-az-ephemeralsubnet
+  * frontsubnets
+  * dedicatedsubnets
+  * ephemeralsubnets
   * public-routetable
   * private-routetable
   * id - the vpc id
@@ -35,7 +32,7 @@ Outputs:
   * default_network_acl_id
   * default_security_group_id
   * security_group_allow_all
-  * nat_instance
-  * nat_public_ip
-  * nat_private_ip
+  * nat_instances
+  * nat_public_ips
+  * nat_private_ips
 
