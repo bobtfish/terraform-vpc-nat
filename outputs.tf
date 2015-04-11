@@ -7,6 +7,9 @@ output "region" {
 output "account" {
   value = "${var.account}"
 }
+output "az_count" {
+  value = "${module.vpc.az_count}"
+}
 output "azs" {
   value = "${module.vpc.azs}"
 }
