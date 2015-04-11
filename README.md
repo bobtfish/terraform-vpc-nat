@@ -20,6 +20,8 @@ Inputs:
   * aws_key_name - The name of an AWS public key to access the NAT instance
 
 Outputs:
+  * azs
+  * az_count
   * aws_key_name
   * frontsubnets
   * dedicatedsubnets
