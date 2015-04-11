@@ -36,7 +36,7 @@ resource "aws_security_group" "allow_all" {
 }
 
 module "ami" {
-  source = "github.com/terraform-community-modules/tf_aws_ubuntu_ami/instance-store"
+  source = "github.com/terraform-community-modules/tf_aws_ubuntu_ami/ebs"
   instance_type = "${var.instance_type}"
   region = "${var.region}"
   distribution = "trusty"
