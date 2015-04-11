@@ -9,7 +9,7 @@ resource "aws_route_table" "private" {
     vpc_id = "${module.vpc.id}"
     route {
         cidr_block = "0.0.0.0/0"
-        instance_id = "${aws_instance.nat.0.id}"
+        instance_id = "${aws_instance.nat.0.id}" /* FIXME */
     }
 
     tags {
