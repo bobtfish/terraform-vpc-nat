@@ -37,7 +37,7 @@ resource "aws_security_group" "allow_all" {
 
 module "ami" {
   source = "github.com/terraform-community-modules/tf_aws_ubuntu_ami/instance-store"
-  instance_type = "m3.large"
+  instance_type = "${var.instance_type}"
   region = "${var.region}"
   distribution = "trusty"
 }
@@ -45,7 +45,7 @@ module "ami" {
 resource "aws_instance" "nat" {
     count = "2" /* FIXME ${module.vpc.az_count}" */
     ami = "${module.ami.ami_id}"
-    instance_type = "m3.large"
+    instance_type = "${var.instance_type}"
     source_dest_check = false
     key_name = "${var.aws_key_name}"
     subnet_id = "${element(split(\",\", module.vpc.frontsubnets), count.index)}"

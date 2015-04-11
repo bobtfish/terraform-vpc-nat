@@ -1,3 +1,6 @@
+variable "instance_type" {
+  default = "t2.micro"
+}
 variable "region" {
   default = "eu-central-1"
 }
