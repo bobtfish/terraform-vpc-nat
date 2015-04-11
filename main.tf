@@ -9,7 +9,7 @@ resource "aws_route_table" "private" {
     vpc_id = "${module.vpc.id}"
     route {
         cidr_block = "0.0.0.0/0"
-        instance_id = "${aws_instance.nat-primary.id}"
+        instance_id = "${aws_instance.nat.0.id}"
     }
 
     tags {
@@ -17,7 +17,7 @@ resource "aws_route_table" "private" {
     }
 }
 
-resource "aws_main_route_table_association" "a" {
+resource "aws_main_route_table_association" "private" {
     vpc_id = "${module.vpc.id}"
     route_table_id = "${aws_route_table.private.id}"
 }
@@ -36,20 +36,19 @@ resource "aws_security_group" "allow_all" {
 }
 
 module "ami" {
-  source = "github.com/bobtfish/terraform-ubuntu-ami"
+  source = "github.com/terraform-community-modules/tf_aws_ubuntu_ami/instance-store"
+  instance_type = "m3.large"
   region = "${var.region}"
   distribution = "trusty"
-  architecture = "amd64"
-  virttype = "hvm"
-  storagetype = "instance-store"
 }
 
-resource "aws_instance" "nat-primary" {
+resource "aws_instance" "nat" {
+    count = "${toint(module.vpc.az_count)}"
     ami = "${module.ami.ami_id}"
     instance_type = "m3.large"
     source_dest_check = false
     key_name = "${var.aws_key_name}"
-    subnet_id = "${module.vpc.primary-az-frontsubnet}"
+    subnet_id = "${element(module.vpc.frontsubnets, count.index)}"
     security_groups = ["${aws_security_group.allow_all.id}"]
     tags {
         Name = "nat-primary"
