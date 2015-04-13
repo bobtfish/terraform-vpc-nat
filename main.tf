@@ -9,7 +9,7 @@ resource "aws_route_table" "private" {
     vpc_id = "${module.vpc.id}"
     route {
         cidr_block = "0.0.0.0/0"
-        instance_id = "${element(split(\",\", module.instances.instance_ids), 0)}" /* FIXME */
+//        instance_id = "${element(split(\",\", module.instances.instance_ids), 0)}" /* FIXME */
     }
 
     tags {
@@ -34,7 +34,7 @@ resource "aws_security_group" "allow_all" {
       cidr_blocks = ["0.0.0.0/0"]
   }
 }
-
+/*
 module "instances" {
   source = "github.com/terraform-community-modules/tf_aws_nat"
   instance_type = "${var.instance_type}"
@@ -47,5 +47,5 @@ module "instances" {
   networkprefix = "${var.networkprefix}"
   account = "${var.account}"
   aws_key_location = "${var.aws_key_location}"
-}
+}*/
 
