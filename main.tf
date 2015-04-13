@@ -43,7 +43,7 @@ module "ami" {
 }
 
 resource "aws_instance" "nat" {
-    count = "${toint(module.vpc.az_count)}"
+    count = "2" // FIXME ${toint(module.vpc.az_count)}"
     ami = "${module.ami.ami_id}"
     instance_type = "m3.large"
     source_dest_check = false
