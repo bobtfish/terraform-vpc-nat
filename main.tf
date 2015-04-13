@@ -34,18 +34,18 @@ resource "aws_security_group" "allow_all" {
       cidr_blocks = ["0.0.0.0/0"]
   }
 }
-/*
+
 module "instances" {
   source = "github.com/terraform-community-modules/tf_aws_nat"
   instance_type = "${var.instance_type}"
   region = "${var.region}"
   instance_count = "2"
   aws_key_name = "${var.aws_key_name}"
-  subnet_ids = "${element(split(\",\", module.vpc.frontsubnets), count.index)}"
+  subnet_ids = "${module.vpc.frontsubnets}"
   security_groups = "${aws_security_group.allow_all.id}"
   az_letters = "${module.vpc.az_letters}"
   networkprefix = "${var.networkprefix}"
   account = "${var.account}"
   aws_key_location = "${var.aws_key_location}"
-}*/
+}
 
