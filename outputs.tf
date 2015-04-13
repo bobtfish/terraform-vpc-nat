@@ -46,13 +46,13 @@ output "default_security_group_id" {
 output "security_group_allow_all" {
     value = "${aws_security_group.allow_all.id}"
 }
-output "nat_instances" {
-    value = "${join(\",\", aws_instance.nat.*.id)}"
+output "nat_instance_ids" {
+    value = "${module.instances.instance_ids}"
 }
 output "nat_public_ips" {
-    value = "${join(\",\", aws_instance.nat.*.public_ip)}"
+    value = "${module.instances.public_ips}"
 }
 output "nat_private_ips" {
-    value = "${join(\",\", aws_instance.nat.*.private_ip)}"
+    value = "${module.instances.private_ips}"
 }
 
