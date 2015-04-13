@@ -47,12 +47,12 @@ output "security_group_allow_all" {
     value = "${aws_security_group.allow_all.id}"
 }
 output "nat_instances" {
-    value = "1" //${module.instances.instance_ids}"
+    value = "${module.instances.instance_ids}"
 }
 output "nat_public_ips" {
-    value = "2" //${module.instances.public_ips}"
+    value = "${module.instances.public_ips}"
 }
 output "nat_private_ips" {
-    value = "3" // ${module.instances.private_ips}"
+    value = "${module.instances.private_ips}"
 }
 
