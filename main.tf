@@ -28,7 +28,6 @@ resource "aws_route" "default" {
     route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
     destination_cidr_block = "0.0.0.0/0"
     instance_id = "${element(split(\",\", module.instances.instance_ids), count.index)}"
-    vpc_peering_connection_id = "pcx-45ff3dc1"
 }
 
 resource "aws_security_group" "allow_all" {
