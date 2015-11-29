@@ -3,6 +3,8 @@ module "vpc" {
     region = "${var.region}"
     account = "${var.account}"
     networkprefix = "${var.networkprefix}"
+    az_count = "2"
+    az_list = "eucentral-1a,eucentral1-b"
 }
 
 resource "aws_route_table" "private" {
