@@ -6,20 +6,28 @@ module "vpc" {
 }
 
 resource "aws_route_table" "private" {
+    count = 2
     vpc_id = "${module.vpc.id}"
-    route {
-        cidr_block = "0.0.0.0/0"
-        instance_id = "${element(split(\",\", module.instances.instance_ids), 0)}" /* FIXME */
-    }
 
     tags {
         Name = "${var.region} ${var.account} private"
+        type = "private"
+        az = "element(split(\",\", module.vpc.az_letters), count)"
     }
 }
 
 resource "aws_main_route_table_association" "private" {
     vpc_id = "${module.vpc.id}"
-    route_table_id = "${aws_route_table.private.id}"
+    route_table_id = "${aws_route_table.private.0.id}"
+}
+
+resource "aws_route" "default" {
+    count = 2
+    route_table_id = "${element(aws_route_table.private.*.id, count)}"
+    destination_cidr_block = "0.0.0.0/0"
+    instance_id = "${element(split(\",\", module.instances.instance_ids), count)}"
+    vpc_peering_connection_id = "pcx-45ff3dc1"
+    depends_on = ["aws_route_table.testing"]
 }
 
 resource "aws_security_group" "allow_all" {
