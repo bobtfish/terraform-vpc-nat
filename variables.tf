@@ -12,6 +12,6 @@ variable "aws_key_name" {
 }
 variable "aws_key_location" {
 }
-variable "azs_list_all" {
+variable "az_list_all" {
   default = "eu-central-1a,eu-central-1b"
 }

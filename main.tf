@@ -4,11 +4,11 @@ module "vpc" {
     account = "${var.account}"
     networkprefix = "${var.networkprefix}"
     az_count = "2"
-    az_list = "eu-central-1a,eu-central-1b"
+    az_list = "${var.az_list_all}"
 }
 
 resource "aws_route_table" "private" {
-    count = "${length(split(",", var.azs_list_all))}"
+    count = "${length(split(",", var.az_list_all))}"
     vpc_id = "${module.vpc.id}"
 
     tags {
