@@ -12,7 +12,7 @@ resource "aws_route_table" "private" {
     vpc_id = "${module.vpc.id}"
 
     tags {
-        Name = "${var.region} ${var.account} private"
+        Name = "${element(split(\",\", var.az_list_all), count.index)} ${var.account} private"
         type = "private"
         az = "${element(split(\",\", var.az_list_all), count.index)}"
     }
