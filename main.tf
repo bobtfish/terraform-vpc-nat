@@ -23,12 +23,12 @@ resource "aws_main_route_table_association" "private" {
     route_table_id = "${aws_route_table.private.0.id}"
 }
 
-resource "aws_route" "default" {
-    count = "${length(split(",", var.azs_list_all))}"
-    route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
-    destination_cidr_block = "0.0.0.0/0"
-    instance_id = "${element(split(\",\", module.instances.instance_ids), count.index)}"
-}
+#resource "aws_route" "default" {
+#    count = "${length(split(",", var.azs_list_all))}"
+#    route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
+#    destination_cidr_block = "0.0.0.0/0"
+#    instance_id = "${element(split(\",\", module.instances.instance_ids), count.index)}"
+#}
 
 resource "aws_security_group" "allow_all" {
   name = "allow_all"
