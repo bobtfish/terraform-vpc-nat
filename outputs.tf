@@ -10,8 +10,8 @@ output "account" {
 output "az_count" {
   value = "${module.vpc.az_count}"
 }
-output "azs" {
-  value = "${module.vpc.azs}"
+output "az_list" {
+  value = "${module.vpc.az_list}"
 }
 output "frontsubnets" {
   value = "${module.vpc.frontsubnets}"

@@ -57,7 +57,7 @@ module "instances" {
   aws_key_name = "${var.aws_key_name}"
   subnet_ids = "${module.vpc.frontsubnets}"
   security_groups = "${aws_security_group.allow_all.id}"
-  az_letters = "${module.vpc.az_letters}"
+  az_list = "${module.vpc.az_list}"
   networkprefix = "${var.networkprefix}"
   account = "${var.account}"
   aws_key_location = "${var.aws_key_location}"
