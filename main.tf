@@ -8,13 +8,13 @@ module "vpc" {
 }
 
 resource "aws_route_table" "private" {
-    count = 2
+    count = "${length(split(",", var.azs_list_all))}"
     vpc_id = "${module.vpc.id}"
 
     tags {
         Name = "${var.region} ${var.account} private"
         type = "private"
-        az = "element(split(\",\", module.vpc.az_list_all), count)"
+        az = "element(split(\",\", module.vpc.az_list_all), count.index)"
     }
 }
 
@@ -24,10 +24,10 @@ resource "aws_main_route_table_association" "private" {
 }
 
 resource "aws_route" "default" {
-    count = 2
-    route_table_id = "${element(aws_route_table.private.*.id, count)}"
+    count = "${length(split(",", var.azs_list_all))}"
+    route_table_id = "${element(aws_route_table.private.*.id, count.index)}"
     destination_cidr_block = "0.0.0.0/0"
-    instance_id = "${element(split(\",\", module.instances.instance_ids), count)}"
+    instance_id = "${element(split(\",\", module.instances.instance_ids), count.index)}"
     vpc_peering_connection_id = "pcx-45ff3dc1"
 }
 
